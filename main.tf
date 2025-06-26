@@ -92,13 +92,6 @@ resource "aws_lambda_function" "search" {
   }
 }
 
-resource "aws_lambda_layer_version" "custom_deps" {
-  layer_name          = "semantic-layer"
-  s3_bucket           = var.bucket_name
-  s3_key              = "layers/layer.zip"
-  compatible_runtimes = ["python3.9"]
-}
-
 resource "aws_db_instance" "pgvector" {
   allocated_storage    = 20
   engine               = "postgres"
