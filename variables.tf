@@ -8,7 +8,7 @@ variable "bucket_name" {
 }
 
 variable "db_user" {
-  default = "admin"
+  default = "postgres_user"
 }
 
 variable "db_password" {
