@@ -39,7 +39,7 @@ resource "aws_lambda_function" "parser" {
       DB_HOST     = aws_db_instance.pgvector.address
       DB_USER     = var.db_user
       DB_PASSWORD = var.db_password
-      OPENAI_API_KEY = "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"
+      OPENAI_API_KEY = var.openai_api_key
     }
   }
 }
@@ -56,7 +56,7 @@ resource "aws_lambda_function" "search" {
       DB_HOST     = aws_db_instance.pgvector.address
       DB_USER     = var.db_user
       DB_PASSWORD = var.db_password
-      OPENAI_API_KEY = "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"
+      OPENAI_API_KEY = var.openai_api_key
     }
   }
 }
