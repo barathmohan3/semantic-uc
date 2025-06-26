@@ -50,7 +50,7 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y python3-pip zip
 
-      - name: Build Lambda Layer ZIP (psycopg2 + openai + boto3 + PyPDF2)
+      - name: Build and Upload Lambda Layer ZIP (psycopg2 + openai + boto3 + PyPDF2)
         run: |
           mkdir -p lambda/layer/python
           pip3 install --upgrade pip
@@ -61,12 +61,14 @@ jobs:
             --python-version 3.9 \
             --only-binary=:all: \
             psycopg2-binary openai boto3 PyPDF2
-          cd lambda/layer
-          zip -r layer.zip python
 
-      - name: Upload Lambda Layer to S3
-        run: |
-          aws s3 cp layer.zip s3://semantic-docs-bucket/layers/layer.zip
+          echo " Zipping layer..."
+          cd lambda/layer
+          zip -r ../../layer.zip python
+
+          echo "☁ Uploading to S3..."
+          aws s3 cp ../../layer.zip s3://semantic-docs-bucket/layers/layer.zip
+
 
       - name: Terraform Apply or Destroy
         run: |
