@@ -66,9 +66,6 @@ jobs:
           cd lambda/layer
           zip -r ../../layer.zip python
 
-          echo "☁ Uploading to S3..."
-          aws s3 cp ../../layer.zip s3://semantic-docs-bucket/layers/layer.zip
-
 
       - name: Terraform Apply or Destroy
         run: |
@@ -77,3 +74,8 @@ jobs:
           else
             terraform apply -auto-approve
           fi
+
+      - name: Upload Lambda Layer to S3
+        run: |
+          aws s3 cp layer.zip s3://semantic-docs-bucket/layers/layer.zip
+
