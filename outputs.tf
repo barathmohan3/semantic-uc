@@ -1,7 +1,3 @@
-output "s3_bucket" {
-  value = aws_s3_bucket.documents.bucket
-}
-
 output "db_endpoint" {
   value = aws_db_instance.pgvector.address
 }
