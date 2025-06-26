@@ -63,7 +63,6 @@ jobs:
             psycopg2-binary openai boto3 PyPDF2
           cd lambda/layer
           zip -r layer.zip python
-          mv layer.zip ../../..
 
       - name: Upload Lambda Layer to S3
         run: |
