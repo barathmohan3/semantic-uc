@@ -7,10 +7,6 @@ resource "random_id" "suffix" {
   byte_length = 4
 }
 
-resource "aws_s3_bucket" "documents" {
-  bucket = var.bucket_name
-}
-
 resource "aws_iam_role" "lambda_exec" {
   name = "lambda_exec_role_${random_id.suffix.hex}"
 
@@ -101,9 +97,6 @@ resource "aws_lambda_layer_version" "custom_deps" {
   s3_bucket           = var.bucket_name
   s3_key              = "layers/layer.zip"
   compatible_runtimes = ["python3.9"]
-  depends_on = [
-    aws_s3_bucket.documents
-  ]
 }
 
 resource "aws_db_instance" "pgvector" {
