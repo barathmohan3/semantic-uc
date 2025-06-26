@@ -45,6 +45,30 @@ jobs:
       - name: Terraform plan
         run: terraform plan
 
+      - name: Install Python + pip dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y python3-pip zip
+
+      - name: Build Lambda Layer ZIP (psycopg2 + openai + boto3)
+        run: |
+          mkdir -p lambda/layer/python
+          pip3 install --upgrade pip
+          pip3 install \
+            --platform manylinux2014_x86_64 \
+            --target=lambda/layer/python \
+            --implementation cp \
+            --python-version 3.9 \
+            --only-binary=:all: \
+            psycopg2-binary openai boto3 PyPDF2
+          cd lambda/layer
+          zip -r ../../../layer.zip python
+          cd ../../..
+
+      - name: Upload Lambda Layer to S3
+        run: |
+          aws s3 cp layer.zip s3://semantic-docs-bucket/layers/layer.zip
+
       - name: Terraform Apply or Destroy
         run: |
           if [[ "${{ github.event.inputs.action }}" == "destroy" ]]; then
