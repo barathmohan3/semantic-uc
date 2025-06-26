@@ -97,7 +97,7 @@ resource "aws_lambda_function" "search" {
 resource "aws_db_instance" "pgvector" {
   allocated_storage    = 20
   engine               = "postgres"
-  engine_version       = "15.4"
+  engine_version       = "15.3"
   instance_class       = "db.t3.micro"
   db_name              = "vectorsearch"
   username             = var.db_user
