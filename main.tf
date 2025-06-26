@@ -66,7 +66,6 @@ resource "aws_db_instance" "pgvector" {
   engine               = "postgres"
   engine_version       = "13.4"
   instance_class       = "db.t3.micro"
-  name                 = "vectorsearch"
   username             = var.db_user
   password             = var.db_password
   skip_final_snapshot  = true
