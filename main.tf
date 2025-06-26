@@ -66,6 +66,7 @@ resource "aws_lambda_function" "parser" {
   role             = aws_iam_role.lambda_exec.arn
   handler          = "parser_lambda.lambda_handler"
   runtime          = "python3.9"
+  layers           = ["arn:aws:lambda:us-east-1:898466741470:layer:psycopg2-py39:1"]
   source_code_hash = data.archive_file.parser_lambda.output_base64sha256
   environment {
     variables = {
@@ -83,6 +84,7 @@ resource "aws_lambda_function" "search" {
   role             = aws_iam_role.lambda_exec.arn
   handler          = "search_lambda.lambda_handler"
   runtime          = "python3.9"
+  layers = ["arn:aws:lambda:us-east-1:898466741470:layer:psycopg2-py39:1"]
   source_code_hash = data.archive_file.search_lambda.output_base64sha256
   environment {
     variables = {
