@@ -96,11 +96,13 @@ resource "aws_lambda_function" "search" {
   }
 }
 
-resource "aws_lambda_layer_version" "custom_deps" {
+resource "aws_lambda_layer_version" "semantic_layer" {
   layer_name          = "semantic-layer"
-  s3_bucket           = var.bucket_name
-  s3_key              = "layers/layer.zip"
+  description         = "Layer with psycopg2, openai, boto3, PyPDF2"
   compatible_runtimes = ["python3.9"]
+
+  s3_bucket = "semantic-docs-bucket"
+  s3_key    = "layers/layer.zip"
 }
 
 resource "aws_db_instance" "pgvector" {
