@@ -101,7 +101,7 @@ resource "aws_lambda_layer_version" "semantic_layer" {
   description         = "Layer with psycopg2, openai, boto3, PyPDF2"
   compatible_runtimes = ["python3.9"]
 
-  s3_bucket = "semantic-docs-bucket"
+  s3_bucket = "aws_s3_bucket.documents"
   s3_key    = "layers/layer.zip"
 }
 
