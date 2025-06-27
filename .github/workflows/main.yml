@@ -66,6 +66,10 @@ jobs:
           cd lambda/layer
           zip -r ../../layer.zip python
 
+      - name: Upload Lambda Layer to S3
+        run: |
+          aws s3 cp layer.zip s3://semantic-shit/layers/layer.zip
+
       - name: Terraform Apply or Destroy
         run: |
           if [[ "${{ github.event.inputs.action }}" == "destroy" ]]; then
@@ -73,8 +77,3 @@ jobs:
           else
             terraform apply -auto-approve
           fi
-
-      - name: Upload Lambda Layer to S3
-        run: |
-          aws s3 cp layer.zip s3://semantic-docs-bucket/layers/layer.zip
-
